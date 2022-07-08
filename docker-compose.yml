@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  nextjs-i18n-network:
+    external: true
+
+services:
+  reverseproxy:
+    image: "nginx:1.13.11-alpine"
+    container_name: "nextjs-i18n-nginx"
+    ports:
+      - "6080:80"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    volumes:
+      - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - nextjs-i18n-network
+
+  customer_portal:
+    build: .
+    container_name: "nextjs-i18n-app"
+    working_dir: /var/www
+    tty: true
+    networks:
+      - nextjs-i18n-network
+
