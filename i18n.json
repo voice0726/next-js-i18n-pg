@@ -6,7 +6,9 @@
   "defaultLocale": "ja",
   "pages": {
     "*": [
-      "home"
+      "home",
+      "news",
+      "user"
     ]
   },
   "logBuild": true

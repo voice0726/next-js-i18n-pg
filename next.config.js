@@ -14,6 +14,21 @@ const securityHeaders = [
 
 module.exports = nextTranslate({
   reactStrictMode: true,
-  basePath: '/app',
-  assetPrefix: '/app',
+  assetPrefix: '/nextjs-internal',
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: '/nextjs-internal/api/:path*',
+          destination: '/api/:path*',
+        },
+      ],
+      beforeFiles: [
+        {
+          source: '/nextjs-internal/_next/:path*',
+          destination: '/_next/:path*',
+        },
+      ],
+    };
+  },
 });
